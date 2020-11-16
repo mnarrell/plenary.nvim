@@ -115,9 +115,12 @@ function harness:test_directory(test_type, directory)
     outputter = nvim_output
   end
 
+  log.info("Finding paths")
   local paths = self:_find_files_to_run(directory)
+  log.info("Paths:", paths)
   local jobs = f.map(
     function(p)
+      log.info("Mapping...", p)
       return Job:new({
         command = 'nvim',
         args = {
