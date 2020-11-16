@@ -163,7 +163,9 @@ function harness:test_directory(test_type, directory)
   log.debug("Done...")
 
   if headless then
+    log.info("Checking results...")
     if f.any(function(_, v)
+      log.info("Code:", v.code)
       return v.code ~= 0
     end, jobs) then
       os.exit(1)
