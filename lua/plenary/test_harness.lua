@@ -155,6 +155,7 @@ function harness:test_directory(test_type, directory)
   for i, j in ipairs(jobs) do
     log.info("Starting job number:", i)
     j:start()
+    log.debug("... Completed job number", i)
   end
 
   log.debug("...Waiting")
