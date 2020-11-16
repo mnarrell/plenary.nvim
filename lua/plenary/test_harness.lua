@@ -88,9 +88,11 @@ function harness:test_directory(test_type, directory)
 
   log.info("Starting...")
   if test_type == 'busted' then
+    log.info("Checking busted deps")
     -- Only need to make sure penlight/lfs is available, since we have slightly different busted
     require('plenary.neorocks').ensure_installed('luafilesystem', 'lfs', true)
     require('plenary.neorocks').ensure_installed('penlight', 'pl', true)
+    log.info("Done with busted deps")
   end
 
   local outputter, res
