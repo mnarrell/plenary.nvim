@@ -93,24 +93,25 @@ function harness:test_directory(test_type, directory)
     require('plenary.neorocks').ensure_installed('penlight', 'pl', true)
   end
 
-  local res = win_float.percentage_range_window(0.95, 0.70, {winblend = 3})
-
-  vim.api.nvim_buf_set_keymap(res.bufnr, "n", "q", ":q<CR>", {})
-  vim.api.nvim_buf_set_option(res.bufnr, 'filetype', 'terminal')
-
-  vim.api.nvim_win_set_option(res.win_id, 'winhl', 'Normal:Normal')
-  vim.api.nvim_win_set_option(res.win_id, 'conceallevel', 3)
-  vim.api.nvim_win_set_option(res.win_id, 'concealcursor', 'n')
-
-  if res.border_win_id then
-    vim.api.nvim_win_set_option(res.border_win_id, 'winhl', 'Normal:Normal')
-  end
-  vim.cmd('mode')
-
-  local outputter
+  local outputter, res
   if headless then
+    res = {}
     outputter = print_output
   else
+    res = win_float.percentage_range_window(0.95, 0.70, {winblend = 3})
+
+    vim.api.nvim_buf_set_keymap(res.bufnr, "n", "q", ":q<CR>", {})
+    vim.api.nvim_buf_set_option(res.bufnr, 'filetype', 'terminal')
+
+    vim.api.nvim_win_set_option(res.win_id, 'winhl', 'Normal:Normal')
+    vim.api.nvim_win_set_option(res.win_id, 'conceallevel', 3)
+    vim.api.nvim_win_set_option(res.win_id, 'concealcursor', 'n')
+
+    if res.border_win_id then
+      vim.api.nvim_win_set_option(res.border_win_id, 'winhl', 'Normal:Normal')
+    end
+    vim.cmd('mode')
+
     outputter = nvim_output
   end
 
@@ -147,7 +148,7 @@ function harness:test_directory(test_type, directory)
     paths
   )
 
-  log.debug("Running...")
+  log.info("Running...")
   for _, j in ipairs(jobs) do
     j:start()
   end

@@ -21,9 +21,6 @@ jobs:
         curl -OL https://raw.githubusercontent.com/norcalli/bot-ci/master/scripts/github-actions-setup.sh
         source github-actions-setup.sh nightly-x64
         make ci
-    # - name: Test
-      # run: make test
-      # run: exec nvim -u NONE -E -R --headless +'set rtp+=$PWD' +'luafile scripts/docgen.lua' +q
   # macos:
   #   runs-on: [macos-latest]
   #   steps:
