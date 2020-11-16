@@ -119,10 +119,8 @@ function harness:test_directory(test_type, directory)
 
   log.info("Finding paths")
   local paths = self:_find_files_to_run(directory)
-  log.info("Paths:", paths)
   local jobs = f.map(
     function(p)
-      log.info("Mapping...", p)
       return Job:new({
         command = 'nvim',
         args = {
@@ -154,7 +152,8 @@ function harness:test_directory(test_type, directory)
   )
 
   log.info("Running...")
-  for _, j in ipairs(jobs) do
+  for i, j in ipairs(jobs) do
+    log.info("Starting job number:", i)
     j:start()
   end
 
