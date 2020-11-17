@@ -81,7 +81,7 @@ function Job:new(o)
   obj.command = o.command
   obj.args = o.args
   obj.cwd = o.cwd and vim.fn.expand(o.cwd)
-  obj.env = o.env
+  obj.env = o.env or { PATH = os.getenv("PATH") }
   if o.interactive == nil then
     obj.interactive = true
   else
