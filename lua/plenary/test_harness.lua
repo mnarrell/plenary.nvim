@@ -86,13 +86,13 @@ end
 function harness:test_directory(test_type, directory)
   validate_test_type(test_type)
 
-  log.info("Starting...")
+  log.debug("Starting...")
   if test_type == 'busted' then
-    log.info("Checking busted deps")
+    log.debug("Checking busted deps")
     -- Only need to make sure penlight/lfs is available, since we have slightly different busted
     -- require('plenary.neorocks').ensure_installed('luafilesystem', 'lfs', true)
     -- require('plenary.neorocks').ensure_installed('penlight', 'pl', true)
-    log.info("Done with busted deps")
+    log.debug("Done with busted deps")
   end
 
   local outputter, res
@@ -117,7 +117,7 @@ function harness:test_directory(test_type, directory)
     outputter = nvim_output
   end
 
-  log.info("Finding paths")
+  log.debug("Finding paths")
   local paths = self:_find_files_to_run(directory)
   local jobs = f.map(
     function(p)
@@ -151,9 +151,9 @@ function harness:test_directory(test_type, directory)
     paths
   )
 
-  log.info("Running...")
+  log.debug("Running...")
   for i, j in ipairs(jobs) do
-    log.info("Starting job number:", i)
+    log.debug("Starting job number:", i)
     j:start()
     log.debug("... Completed job number", i)
   end
@@ -164,9 +164,9 @@ function harness:test_directory(test_type, directory)
   log.debug("Done...")
 
   if headless then
-    log.info("Checking results...")
+    log.debug("Checking results...")
     if f.any(function(_, v)
-      log.info("Code:", v.code)
+      log.debug("Code:", v.code)
       return v.code ~= 0
     end, jobs) then
       os.exit(1)
